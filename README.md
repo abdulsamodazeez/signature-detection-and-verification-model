@@ -44,4 +44,42 @@ dataset/
 Make sure to have a sufficient number of training and test samples for each class (genuine and forged) to achieve good model performance.
 
 # Model Architecture
-The Signature Detection and Verification Model utilizes a deep convolutional neural network (CNN) architecture. It consists of several convolutional layers, followed by fully connected layers and output layers for
+The Signature Detection and Verification Model utilizes a deep convolutional neural network (CNN) architecture. It consists of several convolutional layers, followed by fully connected layers and output layer.
+
+# Deployment with Gradio
+The Signature Detection and Verification Model was deployed and integrated into a user-friendly interface using Gradio. Gradio provides a simple way to create customizable UI components for machine learning models.
+
+To deploy the model using Gradio, follow these steps:
+```python
+pip install gradio
+import gradio as gr
+
+#load model
+model = SignatureVerificationModel(model_path='/path/to/model')
+
+#Define the prediction function:
+def predict_signature(image):
+    result = model.verify_signature(signature_image=image)
+    return "Genuine" if result else "Forged"
+
+#Create the Gradio interface:
+iface = gr.Interface(
+    fn=predict_signature,
+    inputs="image",
+    outputs="text",
+    title="Signature Verification",
+    description="Upload an image containing a signature to verify its authenticity.",
+    examples=[
+        ['path/to/signature1.jpg'],
+        ['path/to/signature2.jpg']
+    ]
+)
+
+iface.launch()
+```
+For more information and advanced customization options, refer to the [Gradio documentation]([url](https://gradio.app/docs)).
+
+# Contributing
+Contributions to the Signature Detection and Verification Model project are always welcome! If you have any ideas, improvements, or bug fixes, please submit a pull request
+
+
